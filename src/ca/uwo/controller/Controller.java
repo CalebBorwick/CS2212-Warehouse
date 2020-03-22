@@ -1,5 +1,6 @@
 package ca.uwo.controller;
 
+import ca.uwo.frontend.Facade;
 import ca.uwo.utils.Invoice;
 import ca.uwo.utils.Order;
 
@@ -12,8 +13,10 @@ public class Controller {
 	private CreateInvoiceOperation createInvoiceOp;
 	private DepleteStockOperation depleteStockOp;
 	private ReplenishStockOperation replenishStockOp;
-	
+	private static Controller instance = null;
+
 	Order currentOrder = null;
+
 	
 	/**
 	 * deplete the stock after placing the order.
@@ -54,4 +57,12 @@ public class Controller {
 		replenishStockOp = new ReplenishStockOperation();
 		createInvoiceOp = new CreateInvoiceOperation();
 	}
+
+	public static Controller getInstance() {
+		if (instance == null)
+			instance = new Controller();
+		
+		return instance;
+	}
+	
 }
