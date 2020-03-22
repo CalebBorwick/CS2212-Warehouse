@@ -31,7 +31,7 @@ public class LowQuantityProxy extends Proxy {
 		int quat = getQuantity(orderDetails);
 		if (quat<=10) {
 			if (authenticate(buyer)==true) {
-				Facade facade = new Facade();
+				Facade facade = Facade.getInstance();
 				facade.placeOrder(orderDetails, buyer);
 			}
 		
