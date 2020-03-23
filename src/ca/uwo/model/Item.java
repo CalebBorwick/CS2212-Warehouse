@@ -50,7 +50,7 @@ public class Item {
 
 		// When you add states to items make sure you
 		// initialize them using the proper STATE!!!!
-		this.state= ItemStateFactory.create(name);
+		this.state= ItemStateFactory.create(quantity);
 
 	}
 

@@ -10,7 +10,7 @@ import ca.uwo.utils.ItemResult;
  * differently. On the other hand, actions may also alter the states of the item.  
  */
 public interface ItemState {
-
+	
 	/**
 	 * this method behaves appropriately depending on different states of the Item.
 	 * @param item the item to deplete.
