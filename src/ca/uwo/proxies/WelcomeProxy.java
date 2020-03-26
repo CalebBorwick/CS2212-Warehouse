@@ -5,6 +5,7 @@ import java.util.Map;
 import ca.uwo.client.Buyer;
 import ca.uwo.client.Client;
 import ca.uwo.client.Supplier;
+import ca.uwo.dataAccess.DataManager;
 import ca.uwo.frontend.Facade;
 
 /**
@@ -16,6 +17,15 @@ import ca.uwo.frontend.Facade;
  * design pattern.
  */
 public class WelcomeProxy extends Proxy {
+	private static WelcomeProxy instance = null;
+
+	public static WelcomeProxy getInstance() {
+		if (instance == null)
+			instance = new WelcomeProxy();
+		
+		return instance;
+	}
+	
 	/**
 	 * constructor for WelcomeProxy class.
 	 */

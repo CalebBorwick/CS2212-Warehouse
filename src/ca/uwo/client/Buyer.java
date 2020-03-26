@@ -44,12 +44,11 @@ public class Buyer extends Client {
 		}
 		System.out.println("My name is :" + this.userName + " and I'm buying : ");
 		System.out.println(orderDetails);
-		//WelcomeProxy proxy = new WelcomeProxy();
 		//config the chain of responsibility 
-		Proxy p1 = new WelcomeProxy(); 
-        Proxy p2 = new SupplierProxy(); 
-        Proxy p3 = new LowQuantityProxy(); 
-        Proxy p4 = new HighQuantityProxy(); 
+		Proxy p1 = WelcomeProxy.getInstance(); 
+        Proxy p2 = SupplierProxy.getInstance(); 
+        Proxy p3 = LowQuantityProxy.getInstance(); 
+        Proxy p4 = HighQuantityProxy.getInstance(); 
         p1.SetSuccessor(p2); 
         p2.SetSuccessor(p3); 
         p3.SetSuccessor(p4);

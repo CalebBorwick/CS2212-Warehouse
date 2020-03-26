@@ -6,6 +6,7 @@ import java.util.Map;
 import ca.uwo.client.Supplier;
 import ca.uwo.model.Item;
 import ca.uwo.viewer.restock.strategies.RestockStrategy;
+import ca.uwo.viewer.restock.strategies.RestockStrategyFactory;
 
 /**
  * @author kkontog, ktsiouni, mgrigori
@@ -31,21 +32,23 @@ public class StockManager extends Viewer implements Runnable {
 	 */
 	private StockManager() {
 		super();
+		RestockStrategy strategy = RestockStrategyFactory.create("");
+		this.setRestockStrategy(strategy);
 		//restockDetails.put("apple", 50);
 		//restockDetails.put("pear", 50);
 		//restockDetails.put("mango", 50);
 		//restockDetails.put("onions", 50);
-				Thread t = new Thread(this);
-				t.start();
-		}
+		Thread t = new Thread(this);
+		t.start();
+	}
 	
 	/* (non-Javadoc)
 	 * @see ca.uwo.viewer.Viewer#inform(ca.uwo.model.Item)
 	 */
 	@Override
 	public void inform(Item item) {
-		restockDetails.put(item.getName(), restockStrategy.calculateQuantity(item.getName(), item.getAvailableQuantity(), item.getPrice()));
-	}
+		restockDetails.put(item.getName(), this.restockStrategy.calculateQuantity(item.getName(), item.getAvailableQuantity(), item.getPrice()));
+		}
 
 	// TODO make concurrent
 	/**

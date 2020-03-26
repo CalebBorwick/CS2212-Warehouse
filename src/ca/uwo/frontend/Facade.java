@@ -1,16 +1,10 @@
 package ca.uwo.frontend;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import ca.uwo.banking.BankingTransactions;
 import ca.uwo.client.Buyer;
-import ca.uwo.client.Client;
 import ca.uwo.client.Supplier;
 import ca.uwo.controller.Controller;
 import ca.uwo.frontend.interfaces.FacadeCommands;
@@ -43,7 +37,7 @@ public class Facade implements FacadeCommands {
 	/**
 	 * constructor for Facade class.
 	 */
-	public Facade() {
+	private Facade() {
 		super();
 		this.controller = Controller.getInstance();
 		this.bank = new BankingTransactions();

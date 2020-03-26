@@ -8,13 +8,22 @@ public class OutOfStockState implements ItemState{
 
 	@Override
 	public ItemResult deplete(Item item, int quantity) {
-		// Deplete the item with quantity and return the execution result of
-		// deplete action.
+
 		ItemResult itemResult;
 		int availableQuantity = item.getAvailableQuantity();
-		if (availableQuantity < quantity) {
+		if (availableQuantity <= quantity) {
 			itemResult = new ItemResult("OUT OF STOCK", ResponseCode.Not_Completed);
-		} else {
+			item.setState(new OutOfStockState());
+			item.notifyViewers(item);
+
+		} 
+		else if (availableQuantity <(quantity+10)) {
+			availableQuantity -= quantity;
+			itemResult = new ItemResult("AVAILABLE", ResponseCode.Completed);
+			item.setState(new LowStockState());
+
+		}
+		else {
 			availableQuantity -= quantity;
 			itemResult = new ItemResult("AVAILABLE", ResponseCode.Completed);
 		}
@@ -30,6 +39,12 @@ public class OutOfStockState implements ItemState{
 		availableQuantity += quantity;
 		item.setAvailableQuantity(availableQuantity);
 		ItemResult itemResult = new ItemResult("RESTOCKED", ResponseCode.Completed);
+		if (availableQuantity >10) {
+			item.setState(new InStockState());
+		}
+		else if (availableQuantity>0 && availableQuantity<10) {
+			item.setState(new LowStockState());
+		}
 		return itemResult;
 	}
 

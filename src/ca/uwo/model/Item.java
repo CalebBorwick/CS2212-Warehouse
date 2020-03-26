@@ -1,6 +1,7 @@
 package ca.uwo.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import ca.uwo.model.item.states.ItemState;
@@ -50,8 +51,18 @@ public class Item {
 
 		// When you add states to items make sure you
 		// initialize them using the proper STATE!!!!
-		this.state= ItemStateFactory.create(quantity);
+		if(this.state==null) {
+			this.state= ItemStateFactory.create(this.getAvailableQuantity());
+		}
 
+	}
+	
+	public ItemState getState() {
+		return state;
+	}
+	
+	public void setState(ItemState state) {
+		this.state=ItemStateFactory.create(this.getAvailableQuantity());
 	}
 
 	/**
@@ -98,19 +109,7 @@ public class Item {
 	 * @return execution result of the deplete action.
 	 */
 	public ItemResult deplete(int quantity) {
-		// Deplete the item with quantity and return the execution result of
-		// deplete action.
-		ItemResult itemResult;
-		int availableQuantity = this.getAvailableQuantity();
-		if (availableQuantity < quantity) {
-			itemResult = new ItemResult("OUT OF STOCK", ResponseCode.Not_Completed);
-		} else {
-			availableQuantity -= quantity;
-			itemResult = new ItemResult("AVAILABLE", ResponseCode.Completed);
-		}
-
-		this.setAvailableQuantity(availableQuantity);
-		return itemResult;
+		return this.state.deplete(this, quantity);
 	}
 
 	/**
@@ -121,13 +120,14 @@ public class Item {
 	 * @return execution result of the replenish action.
 	 */
 	public ItemResult replenish(int quantity) {
-		// Replenish the item with quantity and return the execution result of
-		// replenish action.
-		int availableQuantity = this.getAvailableQuantity();
-		availableQuantity += quantity;
-		this.setAvailableQuantity(availableQuantity);
-		ItemResult itemResult = new ItemResult("RESTOCKED", ResponseCode.Completed);
-		return itemResult;
+		return this.state.replenish(this, quantity);
+	}
+
+	
+	public void notifyViewers(Item item) {
+		for (int i=0; i<viewers.size();i++) {
+			viewers.get(i).inform(item);
+		}
 	}
 
 }

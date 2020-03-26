@@ -9,14 +9,24 @@ import ca.uwo.utils.ResponseCode;
 public class InStockState implements ItemState{
 	
 	
+	
 	@Override
 	public ItemResult deplete(Item item, int quantity) {
 
 		ItemResult itemResult;
 		int availableQuantity = item.getAvailableQuantity();
-		if (availableQuantity < quantity) {
+		if (availableQuantity <= quantity) {
 			itemResult = new ItemResult("OUT OF STOCK", ResponseCode.Not_Completed);
-		} else {
+			item.setState(new OutOfStockState());
+			item.notifyViewers(item);
+		} 
+		else if (availableQuantity <(quantity+10)) {
+			availableQuantity -= quantity;
+			itemResult = new ItemResult("AVAILABLE", ResponseCode.Completed);
+			item.setState(new LowStockState());
+
+		}
+		else {
 			availableQuantity -= quantity;
 			itemResult = new ItemResult("AVAILABLE", ResponseCode.Completed);
 		}

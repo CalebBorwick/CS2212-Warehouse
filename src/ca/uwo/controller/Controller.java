@@ -16,7 +16,13 @@ public class Controller {
 	private static Controller instance = null;
 
 	Order currentOrder = null;
-
+	
+	public static Controller getInstance() {
+		if (instance == null)
+			instance = new Controller();
+		
+		return instance;
+	}
 	
 	/**
 	 * deplete the stock after placing the order.
@@ -57,12 +63,4 @@ public class Controller {
 		replenishStockOp = new ReplenishStockOperation();
 		createInvoiceOp = new CreateInvoiceOperation();
 	}
-
-	public static Controller getInstance() {
-		if (instance == null)
-			instance = new Controller();
-		
-		return instance;
-	}
-	
 }

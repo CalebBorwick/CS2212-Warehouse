@@ -1,6 +1,7 @@
 package ca.uwo.utils;
 
 import ca.uwo.pricingStrategies.individual.IndividualPricingStrategy;
+import ca.uwo.pricingStrategies.individual.IndividualPricingStrategyFactory;
 import ca.uwo.pricingStrategies.individual.IndividualPricingStrategyRepo;
 
 /**
@@ -74,7 +75,7 @@ public class OrderItem {
 		this.quantity = quantity;
 		this.price = -1.0;
 		this.itemResult = null;
-	}
+		this.pricingStrategy = IndividualPricingStrategyRepo.getInstance().getStrategy(itemName);	}
 
 	/**
 	 * calculate the price for the item.

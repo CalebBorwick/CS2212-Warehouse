@@ -5,9 +5,9 @@ public class RestockStrategyFactory {
 	public static RestockStrategy create(String type) {
 		switch(type) {
 		case "weird":
-			return new WeirdRestockStrategy();
+			return new RestockStrategy2();
 		default:
-			return new Units50RestockStrategy();
+			return new RestockStrategy1();
 		}
 	}
 

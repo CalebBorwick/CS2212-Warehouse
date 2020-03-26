@@ -8,6 +8,15 @@ import ca.uwo.client.Supplier;
 import ca.uwo.frontend.Facade;
 
 public class SupplierProxy extends Proxy {
+	private static SupplierProxy instance = null;
+
+	public static SupplierProxy getInstance() {
+		if (instance == null)
+			instance = new SupplierProxy();
+		
+		return instance;
+	}
+	
 	/**
 	 * constructor for WelcomeProxy class.
 	 */

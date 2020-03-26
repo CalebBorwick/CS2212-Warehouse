@@ -16,6 +16,16 @@ import ca.uwo.client.Supplier;
 import ca.uwo.frontend.Facade;
 
 public class LowQuantityProxy extends Proxy {
+	
+	private static LowQuantityProxy instance = null;
+
+	public static LowQuantityProxy getInstance() {
+		if (instance == null)
+			instance = new LowQuantityProxy();
+		
+		return instance;
+	}
+	
 	/**
 	 * constructor for WelcomeProxy class.
 	 */

@@ -13,6 +13,15 @@ import ca.uwo.client.Supplier;
 import ca.uwo.frontend.Facade;
 
 public class HighQuantityProxy extends Proxy {
+	
+	private static HighQuantityProxy instance = null;
+
+	public static HighQuantityProxy getInstance() {
+		if (instance == null)
+			instance = new HighQuantityProxy();
+		
+		return instance;
+	}
 	/**
 	 * constructor for WelcomeProxy class.
 	 */
